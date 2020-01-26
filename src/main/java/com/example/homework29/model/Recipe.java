@@ -14,17 +14,15 @@ public class Recipe {
     @Column(name = "CookRecipe")
     private String cookRecipe;
 
-    @OneToMany(mappedBy = "recipe")
-    @Column(name = "recipeCategory")
+    @ManyToOne
     private Category category;
 
-    public Recipe(String description, String cookRecipe, Category category) {
-        this.description = description;
-        this.cookRecipe = cookRecipe;
-        this.category = category;
+    public Recipe() {
     }
 
-    public Recipe() {
+    public Recipe(String description, String cookRecipe) {
+        this.description = description;
+        this.cookRecipe = cookRecipe;
     }
 
     public Long getId() {

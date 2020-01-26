@@ -1,6 +1,8 @@
 package com.example.homework29.model;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "categories")
@@ -8,15 +10,14 @@ public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    private String originCountry;
 
-    private String OriginCountry;
+    @OneToMany(mappedBy = "category",cascade = CascadeType.PERSIST)
+    private Set<Recipe> recipes = new HashSet<>();
 
-    @ManyToOne
-    private Recipe recipe;
-
-    public Category(String originCountry, Recipe recipe) {
-        OriginCountry = originCountry;
-        this.recipe = recipe;
+    public Category(String originCountry) {
+        this.originCountry = originCountry;
+      //  this.recipes = recipes;
     }
 
     public Long getId() {
@@ -28,18 +29,19 @@ public class Category {
     }
 
     public String getOriginCountry() {
-        return OriginCountry;
+        return originCountry;
     }
 
     public void setOriginCountry(String originCountry) {
-        OriginCountry = originCountry;
+        this.originCountry = originCountry;
     }
 
-    public Recipe getRecipe() {
-        return recipe;
-    }
-
-    public void setRecipe(Recipe recipe) {
-        this.recipe = recipe;
+    @Override
+    public String toString() {
+        return "Category{" +
+                "id=" + id +
+                ", originCountry='" + originCountry + '\'' +
+                ", recipes=" + recipes +
+                '}';
     }
 }
