@@ -5,19 +5,18 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Table(name = "categories")
 public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String originCountry;
+
+    private String origin;
 
     @OneToMany(mappedBy = "category",cascade = CascadeType.PERSIST)
-    private Set<Recipe> recipes = new HashSet<>();
+    private Set<Recipe> recipes;
 
-    public Category(String originCountry) {
-        this.originCountry = originCountry;
-      //  this.recipes = recipes;
+    public Category(String origin) {
+        this.origin = origin;
     }
 
     public Long getId() {
@@ -28,20 +27,19 @@ public class Category {
         this.id = id;
     }
 
-    public String getOriginCountry() {
-        return originCountry;
+    public String getOrigin() {
+        return origin;
     }
 
-    public void setOriginCountry(String originCountry) {
-        this.originCountry = originCountry;
+    public void setOrigin(String origin) {
+        this.origin = origin;
     }
 
-    @Override
-    public String toString() {
-        return "Category{" +
-                "id=" + id +
-                ", originCountry='" + originCountry + '\'' +
-                ", recipes=" + recipes +
-                '}';
+    public Set<Recipe> getRecipes() {
+        return recipes;
+    }
+
+    public void setRecipes(Set<Recipe> recipes) {
+        this.recipes = recipes;
     }
 }

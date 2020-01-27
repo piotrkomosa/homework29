@@ -4,25 +4,20 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Table(name = "recipe")
 public class Recipe {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+
     private Long id;
-    @Column(name = "Description")
+
     private String description;
-    @Column(name = "CookRecipe")
-    private String cookRecipe;
 
     @ManyToOne
     private Category category;
 
-    public Recipe() {
-    }
-
-    public Recipe(String description, String cookRecipe) {
+    public Recipe(String description, Category category) {
         this.description = description;
-        this.cookRecipe = cookRecipe;
+        this.category = category;
     }
 
     public Long getId() {
@@ -41,13 +36,6 @@ public class Recipe {
         this.description = description;
     }
 
-    public String getCookRecipe() {
-        return cookRecipe;
-    }
-
-    public void setCookRecipe(String cookRecipe) {
-        this.cookRecipe = cookRecipe;
-    }
 
     public Category getCategory() {
         return category;

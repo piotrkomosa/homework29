@@ -24,8 +24,8 @@ public class RecipeController {
         this.recipeRepository = recipeRepository;
     }
 
-    @PostMapping("/save")
-    public String saveRecipe(@ModelAttribute Recipe recipe){
+    @PostMapping("/add")
+    public String addRecipe(@ModelAttribute Recipe recipe){
         recipeRepository.save(recipe);
         return "/";
 
