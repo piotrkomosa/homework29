@@ -15,6 +15,9 @@ public class Category {
     @OneToMany(mappedBy = "category",cascade = CascadeType.PERSIST)
     private Set<Recipe> recipes;
 
+    public Category() {
+    }
+
     public Category(String origin) {
         this.origin = origin;
     }

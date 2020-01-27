@@ -24,6 +24,12 @@ public class RecipeController {
         this.recipeRepository = recipeRepository;
     }
 
+    @GetMapping("/")
+    public String recipe(Model model){
+        model.addAttribute("recipes", recipeRepository.findAll());
+        return "home";
+    }
+
     @PostMapping("/add")
     public String addRecipe(@ModelAttribute Recipe recipe){
         recipeRepository.save(recipe);

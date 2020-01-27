@@ -15,6 +15,9 @@ public class Recipe {
     @ManyToOne
     private Category category;
 
+    public Recipe() {
+    }
+
     public Recipe(String description, Category category) {
         this.description = description;
         this.category = category;

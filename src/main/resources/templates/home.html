@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Przepisy</title>
+</head>
+
+<h1>Przepisy</h1>
+<body>
+<ul>
+    <li th:each="recipe: ${recipes}">
+
+    <a href="#" th:text="${recipe.description}"></a>
+
+    </li>
+</ul>
+
+</body>
+</html>

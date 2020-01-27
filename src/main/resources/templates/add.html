@@ -12,7 +12,7 @@
 <form method="post" action="/recipe/add" th:object="${recipe}">
     <input type="text" th:field="*{description}" placeholder="Opis"/>
     <select th:field="*{category}">
-        <option th:each="category: ${categories}" th:text="${category.originCountry}" th:value="${category.id}"></option>
+        <option th:each="category: ${categories}" th:value="${category.id}" th:text="${category.originCountry}"></option>
     </select>
 
 </form>
