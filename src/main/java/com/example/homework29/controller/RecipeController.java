@@ -1,46 +1,32 @@
 package com.example.homework29.controller;
 
-
 import com.example.homework29.model.Recipe;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
+import com.example.homework29.repo.RecipeRepository;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import com.example.homework29.repo.CategoryRepository;
-import com.example.homework29.repo.RecipeRepository;
+import org.springframework.web.bind.annotation.PathVariable;
 
-import java.util.List;
 
-@Controller
+import java.util.Optional;
+
 public class RecipeController {
-    @Autowired
-    private CategoryRepository categoryRepository;
+
     private RecipeRepository recipeRepository;
 
-    public RecipeController(CategoryRepository categoryRepository, RecipeRepository recipeRepository) {
-        this.categoryRepository = categoryRepository;
+    public RecipeController(RecipeRepository recipeRepository) {
         this.recipeRepository = recipeRepository;
     }
 
-    @GetMapping("/")
-    public String recipe(Model model){
-        model.addAttribute("recipes", recipeRepository.findAll());
-        return "home";
-    }
+    @GetMapping("/recipe/{id}")
+    public String recipe(@PathVariable Long id, Model model){
+        Optional<Recipe> recipeByIdOptional = recipeRepository.findById(id);
 
-    @PostMapping("/add")
-    public String addRecipe(@ModelAttribute Recipe recipe){
-        recipeRepository.save(recipe);
-        return "/";
+        if(recipeByIdOptional.isPresent()){
+            model.addAttribute("recipe",recipeByIdOptional.get());
+            return "home";
+        }else{
+            return "error";
+        }
 
-    }
-
-    @GetMapping("/showAll")
-    public String showAll(Model model) {
-        List<Recipe> allRecipes = recipeRepository.findAll();
-        model.addAttribute("allRecipes", allRecipes);
-        return "allRecipes";
     }
 }

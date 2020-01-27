@@ -10,7 +10,7 @@
 <ul>
     <li th:each="recipe: ${recipes}">
 
-    <a href="#" th:text="${recipe.description}"></a>
+    <a href="|/recipe/${recipe.id}|" th:text="${recipe.description}"></a>
 
     </li>
 </ul>
