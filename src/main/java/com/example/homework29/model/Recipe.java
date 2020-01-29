@@ -11,6 +11,7 @@ public class Recipe {
     private Long id;
     private String title;
     private String description;
+    private int rating;
     @ManyToOne
     private Category category;
 
@@ -19,6 +20,14 @@ public class Recipe {
 
     public String getTitle() {
         return title;
+    }
+
+    public int getRating() {
+        return rating;
+    }
+
+    public void setRating(int rating) {
+        this.rating = rating;
     }
 
     public void setTitle(String title) {

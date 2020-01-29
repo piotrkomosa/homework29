@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Przepisy</title>
@@ -7,10 +7,11 @@
 
 <h1>Przepisy</h1>
 <body>
+
 <ul>
     <li th:each="recipe: ${recipes}">
 
-    <a href="|/recipe/${recipe.id}|" th:text="${recipe.description}"></a>
+        <a th:href="'/recipe/' + ${recipe.id}" th:text="|${recipe.title} ${recipe.description}|"></a>
 
     </li>
 </ul>

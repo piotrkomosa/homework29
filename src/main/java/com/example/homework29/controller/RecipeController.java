@@ -7,6 +7,7 @@ import com.example.homework29.repo.RecipeRepository;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 
@@ -26,19 +27,19 @@ public class RecipeController {
         this.recipeRepository = recipeRepository;
     }
 
+
+
     @GetMapping("/recipe/{id}")
     public String recipe(@PathVariable Long id, Model model){
         Optional<Recipe> recipeByIdOptional = recipeRepository.findById(id);
 
         if(recipeByIdOptional.isPresent()){
             model.addAttribute("recipe",recipeByIdOptional.get());
-            return "home";
+            return "recipe";
         }else{
             return "error";
         }
-
     }
-
 
     @GetMapping("/recipe/add")
     public String addRecipeForm(Model model, @RequestParam Long id) {
@@ -49,10 +50,12 @@ public class RecipeController {
         return "add";
     }
 
-    @GetMapping("/recipe/add")
+
+    @PostMapping("/recipe/add")
     public String addRecipeForm(Recipe recipe) {
       recipeRepository.save(recipe);
       return "redirect:/category/" + recipe.getCategory().getId();
+
     }
     @GetMapping("/recipe/delete/{id}")
     public String deleteRecipe(@PathVariable Long id) {
@@ -64,7 +67,7 @@ public class RecipeController {
     @Transactional
     public String editRecipe(Recipe recipe){
        recipeRepository.save(recipe);
-        return "redirect:/category/" + recipe.getCategory().getId();
+        return "redirect:/category/" + recipe.getId();
     }
 
 }

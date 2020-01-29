@@ -9,12 +9,16 @@
 <body>
 <h1>Dodaj przepis</h1>
 
-<form method="post" action="/recipe/add" th:object="${recipe}">
-    <input type="text" th:field="*{description}" placeholder="Opis"/>
-    <select th:field="*{category}">
-        <option th:each="category: ${categories}" th:value="${category.id}" th:text="${category.originCountry}"></option>
-    </select>
+    <form method="post" action="/recipe/add" th:object="${recipe}">
 
+        <input type="text" th:field="*{title}" placeholder="Nazwa"/>
+        <input type="text" th:field="*{description}" placeholder="Przepis"/>
+        <input type="number" th:field="*{rating}" placeholder="Like!"/>
+        <select th:field="*{category}">
+            <option th:each="wspolnota: ${categories}" th:text="${category.origin}" th:value="${category.id}"></option>
+        </select>
+        <input type="submit" value="Dodaj przepis" />
+    </form>
 </form>
 </body>
 </html>

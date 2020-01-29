@@ -1,6 +1,7 @@
 package com.example.homework29.controller;
 
 
+import com.example.homework29.model.Category;
 import com.example.homework29.model.Recipe;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import com.example.homework29.repo.CategoryRepository;
 import com.example.homework29.repo.RecipeRepository;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -25,22 +27,12 @@ public class HomeController {
     }
 
     @GetMapping("/")
-    public String home(Model model){
-        model.addAttribute("recipes", recipeRepository.findAll());
+    public String home(Model model) {
+        List<Category> list = categoryRepository.findAll();
+        model.addAttribute("recipes", list);
         return "home";
     }
 
-    @PostMapping("/add")
-    public String addRecipe(@ModelAttribute Recipe recipe){
-        recipeRepository.save(recipe);
-        return "/";
 
-    }
 
-    @GetMapping("/showAll")
-    public String showAll(Model model) {
-        List<Recipe> allRecipes = recipeRepository.findAll();
-        model.addAttribute("allRecipes", allRecipes);
-        return "allRecipes";
-    }
 }
