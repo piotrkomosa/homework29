@@ -9,18 +9,20 @@ public class Recipe {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 
     private Long id;
-
+    private String title;
     private String description;
-
     @ManyToOne
     private Category category;
 
     public Recipe() {
     }
 
-    public Recipe(String description, Category category) {
-        this.description = description;
-        this.category = category;
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public Long getId() {
