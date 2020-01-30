@@ -28,8 +28,12 @@ public class HomeController {
 
     @GetMapping("/")
     public String home(Model model) {
-        List<Category> list = categoryRepository.findAll();
-        model.addAttribute("recipes", list);
+        List<Category> categories = categoryRepository.findAll();
+        model.addAttribute("categories", categories);
+
+        List<Recipe> newRecipes = recipeRepository.findAll();
+        model.addAttribute("newRecipes", newRecipes);
+
         return "home";
     }
 

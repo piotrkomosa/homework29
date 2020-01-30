@@ -8,13 +8,17 @@
 <h1>Przepisy</h1>
 <body>
 
-<ul>
-    <li th:each="recipe: ${recipes}">
 
-        <a th:href="'/recipe/' + ${recipe.id}" th:text="|${recipe.title} ${recipe.description}|"></a>
+    <ul>
+        <li th:each="recipe: ${newRecipes}">
 
-    </li>
-</ul>
+            <a th:href="'/recipe/' + ${recipe.id}" th:text="|${recipe.title} (${recipe.description})|"></a>
+
+        </li>
+
+
+    </ul>
+
 
 </body>
 </html>

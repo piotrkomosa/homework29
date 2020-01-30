@@ -4,20 +4,16 @@ import com.example.homework29.model.Category;
 import com.example.homework29.model.Recipe;
 import com.example.homework29.repo.CategoryRepository;
 import com.example.homework29.repo.RecipeRepository;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 
 import javax.transaction.Transactional;
-import java.beans.Transient;
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 
+@Controller
 public class RecipeController {
 
     private RecipeRepository recipeRepository;
@@ -42,32 +38,55 @@ public class RecipeController {
     }
 
     @GetMapping("/recipe/add")
-    public String addRecipeForm(Model model, @RequestParam Long id) {
+    @Transactional
+    public String addRecipeForm(Model model) {
         Recipe recipe = new Recipe();
-        recipe.setCategory(categoryRepository.findById(id).orElse(null));
-        model.addAttribute("categories",categoryRepository.findAll());
-        model.addAttribute("recipe", recipe);
+        List<Category> categoryList = categoryRepository.findAll();
+        model.addAttribute("categories",categoryList);
+        List<Recipe> recipes = recipeRepository.findAll();
+        model.addAttribute("recipe", recipes);
+        recipe.setCategory((Category) categoryRepository.findAll());
         return "add";
     }
 
 
     @PostMapping("/recipe/add")
+    @Transactional
     public String addRecipeForm(Recipe recipe) {
       recipeRepository.save(recipe);
-      return "redirect:/category/" + recipe.getCategory().getId();
+      return "redirect:/home/" + recipe.getId();
 
     }
+
+
     @GetMapping("/recipe/delete/{id}")
     public String deleteRecipe(@PathVariable Long id) {
         recipeRepository.deleteById(id);
         return "redirect:/";
     }
 
-    @GetMapping("/edit")
+    @PostMapping("/edit")
     @Transactional
-    public String editRecipe(Recipe recipe){
-       recipeRepository.save(recipe);
-        return "redirect:/category/" + recipe.getId();
+    public String editRecipeForm(Recipe recipe) {
+
+        recipeRepository.save(recipe);
+        return "redirect:/home/" ;
+
+    }
+
+    @GetMapping("/edit/{id}")
+    @Transactional
+    public String editRecipe(@PathVariable Long id, Model model){
+        Optional<Recipe> recipes = recipeRepository.findById(id);
+        model.addAttribute("categories",recipes);
+
+        if(recipes.isPresent()){
+           recipes.get();
+            model.addAttribute("recipe",recipes);
+            return "edit";
+        }else{
+            return "error";
+        }
     }
 
 }
