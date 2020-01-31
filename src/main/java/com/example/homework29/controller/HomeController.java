@@ -31,8 +31,8 @@ public class HomeController {
         List<Category> categories = categoryRepository.findAll();
         model.addAttribute("categories", categories);
 
-        List<Recipe> newRecipes = recipeRepository.findAll();
-        model.addAttribute("newRecipes", newRecipes);
+        List<Recipe> recipes = recipeRepository.findAll();
+        model.addAttribute("recipes", recipes);
 
         return "home";
     }
